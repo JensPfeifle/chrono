@@ -84,7 +84,7 @@ pub fn time_to_local_tm(sec: i64, tm: &mut Tm) {
         if libc::localtime_r(&sec, &mut out).is_null() {
             panic!("localtime_r failed: {}", io::Error::last_os_error());
         }
-        #[cfg(any(target_os = "solaris", target_os = "illumos"))]
+        #[cfg(any(target_os = "solaris", target_os = "illumos", target_os = "espidf"))]
         let gmtoff = {
             tzset();
             // < 0 means we don't know; assume we're not in DST.
